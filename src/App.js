@@ -8,43 +8,38 @@ class App extends React.Component {
   // Constructor exists outside of React
   state = {
     counter: 0,
-    name: 'Jesper'
   }
 
   componentDidMount(){
+    this.bindListeners();
+  }
+
+  bindListeners = () => {
     this.listener = firebase
       .database()
       .ref('bananer')
+      .orderByChild('title')
       .on('value', (snapshot) => {
-        console.log(snapshot.val());
-      })
-      
-    this.interval = setInterval(() => {
-      console.log('hello');
-    }, 1000)
+        let tempArray = [];
+        snapshot.forEach((child) => {
+          tempArray.push(child.val());
+        })
+        console.log(tempArray);
+      });
   }
 
   componentWillUnmount(){
-    clearInterval(this.interval);
-    // Always remove the .on listener
     this.listener.off();
   }
 
   onClick = () => {
-    /* 
-     * Proper way to update state
-     * setState is always async
-     * setState accepts both an object and a function
-     */
     firebase
       .database()
       .ref('bananer')
-      .push('En grön')
-    
-    firebase
-      .database()
-      .ref('bananer/grön')
-      .set(true)
+      .push({
+        title: 'areeeetttta',
+        timestamp: (new Date).getTime()
+      })
   }
   
   // Render is inherited

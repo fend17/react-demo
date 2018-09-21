@@ -5,20 +5,30 @@ class App extends React.Component {
 
   // Common initialization
   // Constructor exists outside of React
-  constructor(props){
-    // This component can do everything the React Component can do
-    super(props);
-    // Tillstånd, application state
-    // Every state change triggers render
-    this.state = {
-      name: 'Jesper'
-    };
+  state = {
+    name: 'Jesper',
+    counter: 0
+  }
+
+  onClick = () => {
+    this.setState({})
   }
 
   // Render is inherited
   render(){
-    return <div> {this.state.name} </div>
+    return (
+            <div>
+              <button onClick={this.onClick}>Click me</button>
+              <p>{this.state.name}</p>
+            </div>
+    )
   }
 }
+
+export default App;
+
+
+
+
 
 

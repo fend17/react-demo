@@ -36,17 +36,15 @@ class App extends React.Component {
      * setState is always async
      * setState accepts both an object and a function
      */
-    this.setState({ counter: this.state.counter + 1 }, () => {
-      console.log(this.state.counter);
-    });
-
-    //! NICE!!!!!!
-    this.setState((previousState) => {
-      return {
-        counter: previousState.counter + 1
-      }
-    }, console.log);
-
+    firebase
+      .database()
+      .ref('bananer')
+      .push('En grön')
+    
+    firebase
+      .database()
+      .ref('bananer/grön')
+      .set(true)
   }
   
   // Render is inherited
